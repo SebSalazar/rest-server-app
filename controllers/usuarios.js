@@ -3,16 +3,20 @@ const bcryptjs = require("bcryptjs");
 
 const Usuario = require("../models/usuario");
 
-const usuariosGet = (req = request, res = response) => {
-  const { q, nombre = "Sin nombre", apikey, page = 1, limit } = req.query;
+const usuariosGet = async (req = request, res = response) => {
+  const { limite = 5, desde = 0 } = req.query;
+  const query = { estado: true };
+
+  const [total, usuarios] = await Promise.all([
+    Usuario.countDocuments(query),
+    Usuario.find(query)
+      .skip(Number(desde))
+      .limit(Number(limite))
+  ]);
 
   res.json({
-    msg: "GET Seb Salazar - Controller",
-    q,
-    nombre,
-    apikey,
-    page,
-    limit,
+    total,
+    usuarios
   });
 };
 
@@ -27,15 +31,12 @@ const usuariosPost = async (req = request, res = response) => {
   // Guardar en DB
   await usuario.save();
 
-  res.json({
-    msg: "Post Seb Salazar - Controller",
-    usuario,
-  });
+  res.json(usuario);
 };
 
 const usuariosPut = async (req = request, res = response) => {
   const { id } = req.params;
-  const {_id, password, google, correo, ...resto } = req.body;
+  const { _id, password, google, correo, ...resto } = req.body;
 
   // TODO validar contra la base de datos
   if (password) {
@@ -45,10 +46,7 @@ const usuariosPut = async (req = request, res = response) => {
 
   const usuario = await Usuario.findByIdAndUpdate(id, resto);
 
-  res.json({
-    msg: "Put Seb Salazar - Controller",
-    usuario,
-  });
+  res.json(usuario);
 };
 
 const usuariosPatch = (req = request, res = response) => {
