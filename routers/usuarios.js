@@ -16,19 +16,15 @@ const router = Router();
 
 router.get("/", usuariosGet);
 
-router.post(
-  "/",
-  [
-    check("nombre", "El nombre es obligatorio").not().isEmpty(),
-    check("password", "La contraseña debe tener minimo 6 caracteres").isLength({min: 6}),
-    check("correo", "El correo no es valido").isEmail(),
-    check("correo").custom(emailExiste),
-    //check('rol', 'El rol no es valido').isIn(['ADMIN_ROLE', 'USER_ROLE']),
-    check("rol").custom(esRoleValido),
-    validarCampos,
-  ],
-  usuariosPost
-);
+router.post("/",[
+  check("password", "La contraseña debe tener minimo 6 caracteres").isLength({min: 6}),
+  check("nombre", "El nombre es obligatorio").not().isEmpty(),
+  check("correo").custom(emailExiste),
+  check("correo", "El correo no es valido").isEmail(),
+  check("rol").custom(esRoleValido),
+  //check('rol', 'El rol no es valido').isIn(['ADMIN_ROLE', 'USER_ROLE']),
+  validarCampos,
+],usuariosPost);
 
 router.put("/:id", [
   check("id", "El ID no es valido").isMongoId(),
@@ -37,8 +33,12 @@ router.put("/:id", [
   validarCampos
 ], usuariosPut);
 
-router.patch("/", usuariosPatch);
+router.delete("/:id",[
+  check("id", "El ID no es valido").isMongoId(),
+  check("id").custom(existeUsuarioByID),
+  validarCampos
+], usuariosDelete);
 
-router.delete("/", usuariosDelete);
+router.patch("/", usuariosPatch);
 
 module.exports = router;

@@ -49,17 +49,24 @@ const usuariosPut = async (req = request, res = response) => {
   res.json(usuario);
 };
 
+const usuariosDelete = async (req = request, res = response) => {
+  const {id} = req.params;
+
+  // Eliminando fisicamente el usuario
+  // const usuarioDelete = await Usuario.findByIdAndDelete(id);
+
+  // Cambiando estado para mantener integridad de los datos
+  const usuarioDelete = await Usuario.findByIdAndUpdate(id, {estado:false});
+
+  res.json(usuarioDelete);
+};
+
 const usuariosPatch = (req = request, res = response) => {
   res.json({
     msg: "Patch Seb Salazar - Controller",
   });
 };
 
-const usuariosDelete = (req = request, res = response) => {
-  res.json({
-    msg: "Delete Seb Salazar - Controller",
-  });
-};
 
 module.exports = {
   usuariosGet,
