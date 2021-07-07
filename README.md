@@ -1,6 +1,6 @@
 # RestServer - WebApp
 
-Montando el servidor inicial para comenzar el desarrollo del proyecto **recetasdelaabuela.com**, en la version 1.1.0 se monto el esquema general de la base de datos para los usuarios, las rutas y las respectivas validaciones
+Montando el servidor inicial para comenzar el desarrollo del proyecto **recetasdelaabuela.com**, en la version 1.2.0 se monto las autenticaciones de usuario con JWT, la nueva ruta para login y todo haciendolo con las respectivas validaciones y middlewares necesarios, se implemento las protecciones de rutas, verificacion de roles y optimizaciones de codigo.
 
 ## Requerimientos
 
@@ -19,6 +19,7 @@ Hasta el momento se ha hecho uso de las siguientes dependencias principales:
 "dotenv": "^10.0.0",
 "express": "^4.17.1",
 "express-validator": "^6.12.0",
+"jsonwebtoken": "^8.5.1",
 "mongoose": "^5.13.2",
 "nodemon": "^2.0.9"
 
