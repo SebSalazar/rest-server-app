@@ -1,43 +1,70 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
 
-const { validarCampos } = require("../middlewares/validar-campos");
+const { validarJWT, validarCampos, tieneRol } = require("../middlewares");
+
+const {
+  crearCategoria,
+  obtenerCategorias,
+  obtenerCategoriaById,
+  actualizarCategoria,
+  eliminarCategoria,
+} = require("../controllers/categorias");
+
+const { existeCategoriaByID } = require("../helpers/db-validators");
 
 const router = Router();
 
 // Obtener todas la categorias - public
-router.get("/", (req, res) => {
-  res.json({
-    msg: "Get 1",
-  });
-});
+router.get("/", obtenerCategorias);
 
 // Obtener una categoria - public
-router.get("/:id", (req, res) => {
-  res.json({
-    msg: "Get 2",
-  });
-});
+router.get(
+  "/:id",
+  [
+    check("id", "El ID no es valido").isMongoId(),
+    check("id").custom(existeCategoriaByID),
+    validarCampos,
+  ],
+  obtenerCategoriaById
+);
 
 // Crear una categoria - private - requiere JWT
-router.post("/", (req, res) => {
-  res.json({
-    msg: "Post",
-  });
-});
+router.post(
+  "/",
+  [
+    validarJWT,
+    check("nombre", "El nombre es obligatorio").not().isEmpty(),
+    validarCampos,
+  ],
+  crearCategoria
+);
 
 // Actualizar una categoria - private - requiere JWT
-router.put("/:id", (req, res) => {
-  res.json({
-    msg: "Put",
-  });
-});
+router.put(
+  "/:id",
+  [
+    validarJWT,
+    tieneRol("ADMIN_ROLE", "VENTAS_ROLE"),
+    check("id", "El ID no es valido").isMongoId(),
+    check("id").custom(existeCategoriaByID),
+    check("nombre", "El nombre es obligatorio").not().isEmpty(),
+    validarCampos,
+  ],
+  actualizarCategoria
+);
 
 // Borrar una categoria - ADMIN - requiere JWT
-router.delete("/:id", (req, res) => {
-  res.json({
-    msg: "Delete",
-  });
-});
+router.delete(
+  "/:id",
+  [
+    validarJWT,
+    tieneRol("ADMIN_ROLE"),
+    check("id", "El ID no es valido").isMongoId(),
+    check("id").custom(existeCategoriaByID),
+    validarCampos,
+  ],
+  eliminarCategoria
+);
 
 module.exports = router;
