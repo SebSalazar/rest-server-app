@@ -38,7 +38,6 @@ const login = async (req = request, res = response) => {
       usuario,
       token,
     });
-
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -47,6 +46,16 @@ const login = async (req = request, res = response) => {
   }
 };
 
+const googleSignin = (req = request, res = response) => {
+  const { id_token } = req.body;
+
+  res.json({
+    msg: "Google SingIn: OK!",
+    id_token,
+  });
+};
+
 module.exports = {
   login,
+  googleSignin,
 };
