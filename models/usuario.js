@@ -20,6 +20,7 @@ const usuarioSchema = Schema({
   rol: {
     type: String,
     required: true,
+    default: 'USER_ROLE',
   },
   estado: {
     type: Boolean,
@@ -28,7 +29,7 @@ const usuarioSchema = Schema({
   google: {
     type: Boolean,
     default: false,
-  },
+  }
 });
 
 usuarioSchema.methods.toJSON = function () {
