@@ -1,11 +1,11 @@
 const { response } = require("express");
+
 const { Categoria } = require("../models");
-const categoria = require("../models/categoria");
 
 const obtenerCategorias = async (req, res = response) => {
   const { limite = 10, desde = 0 } = req.query;
   const query = { estado: true };
-  const populate = { path: "usuario", select: "rol nombre correo" };
+  const populate = { path: "usuario", select: "rol nombre" };
 
   const [total, categorias] = await Promise.all([
     Categoria.countDocuments(query),
@@ -23,7 +23,7 @@ const obtenerCategorias = async (req, res = response) => {
 
 const obtenerCategoriaById = async (req, res = response) => {
   const { id } = req.params;
-  const populate = { path: "usuario", select: "rol nombre correo" };
+  const populate = { path: "usuario", select: "rol nombre" };
 
   const categoria = await Categoria.findById(id).populate(populate);
 
@@ -70,7 +70,7 @@ const eliminarCategoria = async (req, res = response) => {
   const { id } = req.params;
 
   // Cambiando el estado a false
-  const categoriaDelete = await categoria.findByIdAndUpdate(id, {
+  const categoriaDelete = await Categoria.findByIdAndUpdate(id, {
     estado: false,
   });
 
