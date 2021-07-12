@@ -1,6 +1,6 @@
 # RestServer - WebApp
 
-Montando el servidor inicial para comenzar el desarrollo del proyecto **recetasdelaabuela.com**, en la version 1.3.0 se implemento todo el **Google Sign** para poder acceder a la aplicación haciendo uso de los servicios de Google, se genero su correspondiente front y haciendo la petición con **fetch** y en el **backend** se realizaron las respectivas validaciones tanto para los tokens, como para validar si el usuario existe en caso contrario registrarlo en la DB.
+Montando el servidor inicial para comenzar el desarrollo del proyecto **recetasdelaabuela.com**, en la version 1.4.0 se implementaron nuevas colecciones **Categorias** y **Productos**, se incluyeron las debidas relaciones entre colecciones y se manejo el CRUD para cada coleccion, por ultimo se hicieron todas la validaciones a las rutas y se incorporaron la nueva ruta para hacer busquedas dinamicas.
 
 ## Requerimientos
 
