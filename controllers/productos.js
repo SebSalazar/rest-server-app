@@ -40,7 +40,7 @@ const obtenerProductoById = async (req, res = response) => {
 const crearProducto = async (req, res = response) => {
   const { estado, usuario, ...body } = req.body;
 
-  const productoDB = await Producto.findOne({ nombre: body.nombre });
+  const productoDB = await Producto.findOne({ nombre: body.nombre.toUpperCase() });
 
   if (productoDB) {
     return res.status(400).json({
