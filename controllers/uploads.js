@@ -1,5 +1,6 @@
-const { response } = require("express");
 const path = require("path");
+const { response } = require("express");
+const { v4: uuidv4 } = require("uuid");
 
 const cargarArchivo = (req, res = response) => {
   if (!req.files || Object.keys(req.files).length === 0 || !req.files.archivo) {
@@ -8,8 +9,20 @@ const cargarArchivo = (req, res = response) => {
   }
 
   const { archivo } = req.files;
+  const nombreCut = archivo.name.split(".");
+  const extension = nombreCut[nombreCut.length - 1];
 
-  const uploadPath = path.join(__dirname, "../uploads/", archivo.name);
+  // Validar extension
+  const extensionesValidas = ["png", "jpg", "jpeg", "gif"];
+
+  if (!extensionesValidas.includes(extension)) {
+    return res.status(400).json({
+      msg: `La extension ${extension} no es permitida - validas(${extensionesValidas})`,
+    });
+  }
+
+  const nombreTemp = uuidv4() + "." + extension;
+  const uploadPath = path.join(__dirname, "../uploads/", nombreTemp);
 
   archivo.mv(uploadPath, (err) => {
     if (err) {
