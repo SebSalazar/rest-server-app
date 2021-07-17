@@ -8,12 +8,25 @@ const cargarArchivo = async (req, res = response) => {
     return;
   }
 
-  // Para extensiones de imagenes
-  const nombre = await subirArchivo(req.files);
+  try {
+    // Para extensiones
+    const nombre = await subirArchivo(req.files, undefined, "imgs");
+    res.json({ nombre });
+  } catch (msg) {
+    res.status(400).json({ msg });
+  }
+};
 
-  res.json({ nombre });
+const actualizarImgUsuario = async (req, res = response) => {
+  const { id, coleccion } = req.params;
+
+  return res.json({
+    id,
+    coleccion,
+  });
 };
 
 module.exports = {
   cargarArchivo,
+  actualizarImgUsuario,
 };

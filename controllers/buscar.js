@@ -22,7 +22,7 @@ const buscarUsuarios = async (termino = "", res = response) => {
     $and: [{ estado: true }],
   });
 
-  const cantidad = await Usuario.count({
+  const cantidad = await Usuario.countDocuments({
     $or: [{ nombre: regex }, { correo: regex }],
     $and: [{ estado: true }],
   });
@@ -47,7 +47,7 @@ const buscarCategorias = async (termino = "", res = response) => {
 
   const categorias = await Categoria.find({ nombre: regex, estado: true }).populate('usuario', 'nombre');
 
-  const cantidad = await Categoria.count({ nombre: regex, estado: true });
+  const cantidad = await Categoria.countDocuments({ nombre: regex, estado: true });
 
   res.json({
     cantidad,
@@ -72,7 +72,7 @@ const buscarProductos = async (termino = "", res = response) => {
     $and: [{ disponible: true }],
   }).populate('categoria', 'nombre');
 
-  const cantidad = await Producto.count({
+  const cantidad = await Producto.countDocuments({
     $or: [{ nombre: regex }, { descripcion: regex }],
     $and: [{ disponible: true }],
   });
