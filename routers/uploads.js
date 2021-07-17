@@ -3,7 +3,7 @@ const { check } = require("express-validator");
 
 const {
   cargarArchivo,
-  actualizarImgUsuario,
+  actualizarImagen,
 } = require("../controllers/uploads");
 
 const { validarCampos } = require("../middlewares");
@@ -23,7 +23,7 @@ router.put(
     ),
     validarCampos,
   ],
-  actualizarImgUsuario
+  actualizarImagen
 );
 
 module.exports = router;

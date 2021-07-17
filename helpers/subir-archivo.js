@@ -7,7 +7,7 @@ const subirArchivo = (
   carpeta = ""
 ) => {
   return new Promise((resolve, reject) => {
-    const { archivo } = files;
+    const { archivo } = files == undefined ? reject('Debe ingresar una imagen') : files;
     const nombreCut = archivo.name.split(".");
     const extension = nombreCut[nombreCut.length - 1];
 
