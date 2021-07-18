@@ -5,6 +5,7 @@ const {
   cargarArchivo,
   actualizarImagen,
   mostrarImagen,
+  actualizarImagenCloudinary,
 } = require("../controllers/uploads");
 
 const { validarCampos } = require("../middlewares");
@@ -24,7 +25,8 @@ router.put(
     ),
     validarCampos,
   ],
-  actualizarImagen
+  //actualizarImagen
+  actualizarImagenCloudinary
 );
 
 router.get(

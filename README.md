@@ -1,6 +1,6 @@
 # RestServer - WebApp
 
-Montando el servidor inicial para comenzar el desarrollo del proyecto **recetasdelaabuela.com**, en la version 1.4.0 se implementaron nuevas colecciones **Categorias** y **Productos**, se incluyeron las debidas relaciones entre colecciones y se manejo el CRUD para cada coleccion, por ultimo se hicieron todas la validaciones a las rutas y se incorporaron la nueva ruta para hacer busquedas dinamicas.
+Montando el servidor inicial para comenzar el desarrollo del proyecto **recetasdelaabuela.com**, en la version 1.5.0 se implemento toda la parte de la **subida de archivos** y la proteccion de los mismo, se implementaron las rutas para la carga de files y sus respectivas validaciones, por ultimo se añadio un hosting externo para la carga de archivos e imagenes como **Cloudinary**.
 
 ## Requerimientos
 
@@ -15,14 +15,17 @@ Hasta el momento se ha hecho uso de las siguientes dependencias principales:
 ```
 
 "bcryptjs": "^2.4.3",
+"cloudinary": "^1.26.2",
 "cors": "^2.8.5",
 "dotenv": "^10.0.0",
 "express": "^4.17.1",
+"express-fileupload": "^1.2.1",
 "express-validator": "^6.12.0",
-"jsonwebtoken": "^8.5.1",
 "google-auth-library": "^7.3.0",
+"jsonwebtoken": "^8.5.1",
 "mongoose": "^5.13.2",
-"nodemon": "^2.0.9"
+"nodemon": "^2.0.9",
+"uuid": "^8.3.2"
 
 ```
 
